@@ -6,6 +6,8 @@
   --ink: #4a3426;
   --accent: #c8693a;
   --panel: #fffaf2;
+  --wood: #b98a5e;      /* pixel art: door, seats, kibble */
+  --wood-dark: #8a5f3c;
 }
 
 * { box-sizing: border-box; }
@@ -69,7 +71,8 @@ button:active { transform: scale(0.96); }
   transform: translate(-50%, -50%);
 }
 
-.prop, .seat { font-size: 40px; text-align: center; }
+.prop, .seat { text-align: center; }
+.sprite { display: block; margin: 0 auto; } /* pixel art from sprites.js */
 .prop-label {
   display: block;
   font-size: 11px;

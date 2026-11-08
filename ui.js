@@ -40,11 +40,13 @@ const UI = (() => {
     byId("refill").addEventListener("click", handlers.onRefill);
     byId("info-close").addEventListener("click", () => (selectedCatId = null));
 
+    byId("door").insertAdjacentHTML("afterbegin", pixelSprite(SPRITES.door, "Door"));
+    byId("bowl").insertAdjacentHTML("afterbegin", pixelSprite(SPRITES.bowl, "Food bowl"));
     place(byId("door"), CONFIG.DOOR_POS);
     place(byId("bowl"), CONFIG.BOWL_POS);
 
     for (const pos of CONFIG.SEAT_POSITIONS) {
-      const seat = makeDiv("seat", "🪑");
+      const seat = makeDiv("seat", pixelSprite(SPRITES.seat, "Seat"));
       place(seat, pos);
       els.shop.appendChild(seat);
     }
