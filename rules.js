@@ -29,7 +29,7 @@ const Rules = (() => {
 
   // SPEC 2.4: a customer pays 20 + 5 for each cat with fullness >= 30.
   function payment(fullnessList) {
-    const fedCats = fullnessList.filter((f) => f >= cfg.HUNGRY_BELOW).length;
+    const fedCats = fullnessList.filter((f) => f < cfg.HUNGRY_BELOW).length;
     return cfg.CUSTOMER_BASE_PAY + cfg.CUSTOMER_BONUS_PER_FED_CAT * fedCats;
   }
 
