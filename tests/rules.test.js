@@ -1,9 +1,9 @@
-// rules.test.js — run with: node --test
+// tests/rules.test.js — run with: node --test
 // Expected numbers come from SPEC.md (not from config.js), so a wrong
 // number in config.js is caught too.
 const test = require("node:test");
 const assert = require("node:assert");
-const Rules = require("./rules.js");
+const Rules = require("../rules.js");
 
 // ---- isHungry (SPEC 2.2: hungry below 30) ----
 

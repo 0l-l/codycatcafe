@@ -1,5 +1,5 @@
-// game.test.js — checks that the game code (Cats, Customers) really uses
-// the rules on the game state. rules.test.js alone can't see this: if
+// tests/game.test.js — checks that the game code (Cats, Customers) really uses
+// the rules on the game state. tests/rules.test.js alone can't see this: if
 // Cats.refillAll took the coins but forgot to feed the cats, every rules
 // test would still pass.
 //
@@ -13,7 +13,7 @@ const vm = require("node:vm");
 
 function loadGame() {
   const files = ["config.js", "rules.js", "cats.js", "customers.js"];
-  const code = files.map((f) => fs.readFileSync(path.join(__dirname, f), "utf8")).join("\n;\n");
+  const code = files.map((f) => fs.readFileSync(path.join(__dirname, "..", f), "utf8")).join("\n;\n");
   const scope = vm.createContext({ window: { location: { search: "" } }, URLSearchParams });
   vm.runInContext(code + "\n;this.Cats = Cats; this.Customers = Customers;", scope);
   return scope;
