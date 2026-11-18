@@ -10,7 +10,7 @@ const Rules = (() => {
 
   // SPEC 2.2: a cat is hungry when its fullness is below 30.
   function isHungry(fullness) {
-    return fullness < cfg.HUNGRY_BELOW;
+    return fullness <= cfg.HUNGRY_BELOW;
   }
 
   // SPEC 2.2: "Refill food" costs 10 coins and adds 30 fullness to every cat,
