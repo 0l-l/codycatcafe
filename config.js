@@ -1,7 +1,8 @@
 // config.js — every tunable number from SPEC.md lives here.
 // Change balance or layout here instead of hunting through the logic files.
 
-const urlParams = new URLSearchParams(window.location.search);
+// In Node (no window) there is no URL, so speed stays at 1.
+const urlParams = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
 
 const CONFIG = {
   // Test helper: open index.html?speed=10 to run the simulation 10x faster.
@@ -53,3 +54,6 @@ const CONFIG = {
     white: { color: "#f3efe6", label: "White" },
   },
 };
+
+// Lets rules.js load the same numbers in Node. Ignored in the browser.
+if (typeof module !== "undefined") module.exports = CONFIG;

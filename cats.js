@@ -85,17 +85,17 @@ const Cats = (() => {
     updateBehavior(cat, dt);
   }
 
+  // The rules themselves live in rules.js.
   function isHungry(cat) {
-    return cat.fullness < CONFIG.HUNGRY_BELOW;
+    return Rules.isHungry(cat.fullness);
   }
 
   // "Refill food": costs FOOD_COST, feeds every cat. Returns false if too poor.
   function refillAll(state) {
-    if (state.coins < CONFIG.FOOD_COST) return false;
-    state.coins -= CONFIG.FOOD_COST;
-    for (const cat of state.cats) {
-      cat.fullness = Math.min(CONFIG.FULLNESS_MAX, cat.fullness + CONFIG.FOOD_AMOUNT);
-    }
+    const result = Rules.refill(state.coins, state.cats.map((c) => c.fullness));
+    if (!result.ok) return false;
+    state.coins = result.coins;
+    state.cats.forEach((cat, i) => (cat.fullness = result.fullness[i]));
     return true;
   }
 

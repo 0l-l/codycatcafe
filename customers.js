@@ -22,10 +22,9 @@ const Customers = (() => {
     state.customers.push(customer);
   }
 
-  // 20 + 5 for each cat with fullness >= 30 at checkout time.
+  // 20 + 5 for each cat with fullness >= 30 at checkout time (rule in rules.js).
   function paymentFor(state) {
-    const fedCats = state.cats.filter((c) => c.fullness >= CONFIG.HUNGRY_BELOW).length;
-    return CONFIG.CUSTOMER_BASE_PAY + CONFIG.CUSTOMER_BONUS_PER_FED_CAT * fedCats;
+    return Rules.payment(state.cats.map((c) => c.fullness));
   }
 
   // Pay once, free the seat, remove the customer.

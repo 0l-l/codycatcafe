@@ -1,5 +1,5 @@
 // main.js — creates the game state and runs the main loop.
-// Load order (see index.html): config.js, cats.js, customers.js, ui.js, main.js
+// Load order (see index.html): config.js, rules.js, cats.js, customers.js, sprites.js, ui.js, main.js
 
 function createInitialState() {
   return {

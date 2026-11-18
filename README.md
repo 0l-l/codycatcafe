@@ -90,15 +90,16 @@ Numbers match `SPEC.md` section 4. "Done" means implemented; the game logic was 
 
 ## Code map
 
-Scripts are plain (no modules) and load in this order from `index.html`: `config.js` → `cats.js` → `customers.js` → `ui.js` → `main.js`. Each logic file exposes one global object.
+Scripts are plain (no modules) and load in this order from `index.html`: `config.js` → `rules.js` → `cats.js` → `customers.js` → `sprites.js` → `ui.js` → `main.js`. Each logic file exposes one global object.
 
 | File | Responsible for | Go here to change… |
 |---|---|---|
 | `index.html` | Page structure: header (coins, cat count, Refill button), the `#shop` box, info panel, message bar, script tags | Buttons or panels on the page |
 | `style.css` | All visuals. Colors are CSS variables at the top. Everything inside `#shop` is absolutely positioned and centered on its (x, y) | Colors, sizes, cat/customer look, animations |
 | `config.js` | `CONFIG`: every number from the spec (costs, timers, chances), layout positions, cat looks, stray names, the `?speed=` test option | Balance, timings, where the door / bowl / seats are, cat colors |
-| `cats.js` | `Cats`: `create(name, look)`, `update(cat, dt)` (fullness decay + walk/idle/sleep behavior), `isHungry(cat)`, `refillAll(state)` | How cats move, hunger rules, feeding |
-| `customers.js` | `Customers`: `update(state, dt, onPaid)` handles spawning every 20 s, seating, the 30 s stay and checkout; `paymentFor(state)` computes the bill | Customer timing and payment rules |
+| `rules.js` | `Rules`: the three hunger/money rules as plain functions — `isHungry(fullness)`, `refill(coins, fullnessList)`, `payment(fullnessList)`. No state, no DOM; also loads in Node (`require('./rules.js')`) | When a cat counts as hungry, food cost/amount, customer payment |
+| `cats.js` | `Cats`: `create(name, look)`, `update(cat, dt)` (fullness decay + walk/idle/sleep behavior), `isHungry(cat)`, `refillAll(state)` (both use `Rules`) | How cats move, applying feeding to cats |
+| `customers.js` | `Customers`: `update(state, dt, onPaid)` handles spawning every 20 s, seating, the 30 s stay and checkout; `paymentFor(state)` gets the bill from `Rules.payment` | Customer timing |
 | `ui.js` | `UI`: `init(handlers)`, `render(state)` (draws cats, customers, header, info panel every frame), `showMessage(text)`, `showPayment(customer, amount)` | Anything you see or click |
 | `main.js` | `createInitialState()`, the `update(dt)` step, and the `requestAnimationFrame` loop with background pause | Starting state, adding a new system to the game loop |
 
